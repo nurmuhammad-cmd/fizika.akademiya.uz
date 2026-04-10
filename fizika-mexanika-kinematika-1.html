@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinematika | 1-Mavzu: Moddiy Nuqta, Ko'chish, Tezlik va Yo'l</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0E1A;
+  --bg2: #0F1525;
+  --bg3: #141B2E;
+  --blue: #3B82F6;
+  --blue-light: #60A5FA;
+  --blue-pale: rgba(59,130,246,0.08);
+  --cyan: #06B6D4;
+  --gold: #F59E0B;
+  --green: #10B981;
+  --red: #EF4444;
+  --white: #F0F4FF;
+  --gray: #8892AA;
+  --border: rgba(59,130,246,0.15);
+  --card: rgba(255,255,255,0.03);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* STARS BG */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 90%, rgba(255,255,255,0.1) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 65% 45%, rgba(96,165,250,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 15% 55%, rgba(96,165,250,0.3) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,14,26,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5vw;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-left { display: flex; align-items: center; gap: 12px; }
+
+.nav-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.nav-breadcrumb a {
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-breadcrumb a:hover { color: var(--blue-light); }
+.nav-breadcrumb .sep { color: rgba(255,255,255,0.15); }
+.nav-breadcrumb .current { color: var(--blue-light); font-weight: 500; }
+
+.nav-right { display: flex; gap: 10px; }
+
+.nav-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  color: var(--gray);
+  background: transparent;
+}
+.nav-btn:hover { background: var(--blue-pale); color: var(--blue-light); border-color: var(--blue); }
+.nav-btn.next { background: var(--blue); color: white; border-color: var(--blue); }
+.nav-btn.next:hover { background: var(--blue-light); }
+
+/* HERO */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 80px 5vw 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(59,130,246,0.12);
+  border: 1px solid rgba(59,130,246,0.25);
+  color: var(--blue-light);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.hero-tag .dot { width: 6px; height: 6px; background: var(--blue-light); border-radius: 50%; animation: pulse 2s infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--blue-light), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: var(--gray);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-top: 20px;
+  font-weight: 300;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.3s ease both;
+}
+
+.meta-item { display: flex; flex-direction: column; gap: 3px; }
+.meta-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: var(--blue-light); }
+.meta-key { font-size: 12px; color: var(--gray); letter-spacing: 0.05em; }
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 5vw;
+}
+
+/* MAIN CONTENT */
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 5vw 100px;
+  position: relative;
+  z-index: 1;
+}
+
+/* SECTION HEADERS */
+.sec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 10px;
+}
+
+.sec-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.sec-desc {
+  font-size: 15px;
+  color: var(--gray);
+  max-width: 560px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* THEORY BLOCK */
+.theory-block {
+  margin-top: 48px;
+  display: grid;
+  gap: 16px;
+}
+
+.theory-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.theory-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue), var(--cyan));
+  border-radius: 3px 0 0 3px;
+}
+
+.theory-card:hover { border-color: rgba(59,130,246,0.35); }
+
+.theory-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.theory-card h3 .icon { font-size: 22px; }
+
+.theory-card p {
+  font-size: 15px;
+  color: var(--gray);
+  line-height: 1.75;
+}
+
+.theory-card p strong { color: var(--white); font-weight: 600; }
+
+.theory-card .note {
+  margin-top: 14px;
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #FCD34D;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* FORMULA SECTION */
+.formulas-section { margin-top: 72px; }
+
+.formulas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.formula-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.formula-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(59,130,246,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.formula-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(59,130,246,0.4);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.formula-name {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+
+.formula-expr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  background: rgba(245,158,11,0.08);
+  border-radius: 8px;
+  border: 1px solid rgba(245,158,11,0.15);
+  display: block;
+  text-align: center;
+}
+
+.formula-vars { display: flex; flex-direction: column; gap: 6px; }
+
+.var-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.var-sym {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--blue-light);
+  background: rgba(59,130,246,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  min-width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.var-desc { color: var(--gray); }
+.var-unit { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--green); margin-left: auto; }
+
+/* ANIMATION DEMO */
+.demo-section { margin-top: 72px; }
+
+.demo-box {
+  margin-top: 32px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.demo-header {
+  background: rgba(59,130,246,0.08);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.demo-title { font-size: 14px; font-weight: 600; color: var(--white); }
+.demo-sub { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+.demo-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.ctrl-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--gray);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ctrl-btn:hover { background: var(--blue-pale); color: var(--blue-light); }
+.ctrl-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
+
+.demo-canvas {
+  padding: 32px 24px;
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.track {
+  position: absolute;
+  bottom: 60px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--border), rgba(59,130,246,0.3), var(--border));
+}
+
+.track-marks {
+  position: absolute;
+  bottom: 50px;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.track-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.mark-line { width: 1px; height: 10px; background: var(--border); }
+.mark-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--gray); }
+
+.particle {
+  position: absolute;
+  bottom: 55px;
+  left: 5%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blue-light), var(--blue));
+  box-shadow: 0 0 12px rgba(96,165,250,0.6);
+  transform: translateX(-50%);
+  transition: left 0s;
+}
+
+.particle-label {
+  position: absolute;
+  bottom: 80px;
+  left: 5%;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue-light);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  transition: left 0s;
+}
+
+.path-line {
+  position: absolute;
+  bottom: 62px;
+  left: 5%;
+  height: 2px;
+  background: rgba(96,165,250,0.3);
+  width: 0;
+  transition: width 0s;
+}
+
+.demo-stats {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border-top: 1px solid var(--border);
+}
+
+.demo-stat {
+  padding: 16px 24px;
+  border-right: 1px solid var(--border);
+}
+.demo-stat:last-child { border-right: none; }
+.demo-stat-label { font-size: 11px; color: var(--gray); margin-bottom: 4px; letter-spacing: 0.08em; }
+.demo-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--gold);
+}
+.demo-stat-unit { font-size: 11px; color: var(--gray); margin-left: 4px; }
+
+/* EXAMPLES */
+.examples-section { margin-top: 72px; }
+
+.examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.example-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.example-header {
+  padding: 18px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: background 0.2s;
+}
+
+.example-header:hover { background: var(--blue-pale); }
+
+.example-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(59,130,246,0.15);
+  border: 1px solid rgba(59,130,246,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-light);
+  flex-shrink: 0;
+}
+
+.example-q { font-size: 15px; color: var(--white); flex: 1; line-height: 1.5; }
+.example-arrow { color: var(--gray); font-size: 16px; transition: transform 0.25s; }
+.example-card.open .example-arrow { transform: rotate(90deg); }
+
+.example-body {
+  display: none;
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.example-card.open .example-body { display: block; }
+
+.solution-step {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.7;
+  display: flex;
+  gap: 12px;
+}
+
+.solution-step:last-child { border-bottom: none; }
+
+.step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--blue-light);
+  background: rgba(59,130,246,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  height: fit-content;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-content { flex: 1; }
+.step-content strong { color: var(--white); }
+
+.formula-inline {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--gold);
+  background: rgba(245,158,11,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+.answer {
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: rgba(16,185,129,0.08);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* QUIZ */
+.quiz-section { margin-top: 72px; }
+
+.quiz-card {
+  margin-top: 32px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.quiz-header {
+  background: rgba(16,185,129,0.06);
+  border-bottom: 1px solid var(--border);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quiz-header h3 { font-size: 16px; font-weight: 600; color: var(--white); }
+.quiz-progress-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--gray); }
+
+.quiz-body { padding: 28px 24px; }
+
+.quiz-q {
+  font-size: 17px;
+  color: var(--white);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+  color: var(--gray);
+  background: var(--card);
+}
+
+.quiz-opt:hover { border-color: var(--blue); color: var(--white); background: var(--blue-pale); }
+.quiz-opt.correct { border-color: var(--green); background: rgba(16,185,129,0.08); color: var(--green); }
+.quiz-opt.wrong { border-color: var(--red); background: rgba(239,68,68,0.08); color: var(--red); }
+
+.opt-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.quiz-opt.correct .opt-letter { background: rgba(16,185,129,0.2); border-color: var(--green); color: var(--green); }
+.quiz-opt.wrong .opt-letter { background: rgba(239,68,68,0.15); border-color: var(--red); color: var(--red); }
+
+.quiz-feedback {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: none;
+}
+
+.quiz-feedback.show { display: flex; gap: 10px; align-items: flex-start; }
+.quiz-feedback.ok { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: var(--green); }
+.quiz-feedback.fail { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #FCA5A5; }
+
+.quiz-nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  gap: 10px;
+}
+
+.quiz-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 22px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-btn:hover { background: var(--blue-light); }
+.quiz-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* PROGRESS BAR */
+.progress-bar-wrap {
+  position: fixed;
+  top: 60px;
+  left: 0; right: 0;
+  height: 3px;
+  z-index: 99;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  width: 0;
+  transition: width 0.2s;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10,14,26,0.95);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 14px 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.bottom-lesson {
+  font-size: 13px;
+}
+
+.bottom-lesson .blabel { color: var(--gray); margin-bottom: 2px; font-size: 11px; }
+.bottom-lesson .btitle { color: var(--white); font-weight: 500; }
+
+.bottom-btns { display: flex; gap: 10px; }
+
+.bb {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border);
+  color: var(--gray);
+  background: transparent;
+}
+
+.bb:hover { background: var(--blue-pale); color: var(--blue-light); border-color: var(--blue); }
+.bb.primary { background: var(--blue); color: white; border-color: var(--blue); }
+.bb.primary:hover { background: var(--blue-light); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+
+/* TABLE */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.compare-table th {
+  background: rgba(59,130,246,0.1);
+  color: var(--blue-light);
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.compare-table td {
+  padding: 12px 16px;
+  color: var(--gray);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.compare-table tr:hover td { background: var(--blue-pale); color: var(--white); }
+.compare-table td:first-child { color: var(--white); font-weight: 500; }
+.compare-table td .badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; background: rgba(59,130,246,0.1); color: var(--blue-light); padding: 2px 8px; border-radius: 4px; }
+
+@media (max-width: 600px) {
+  .formulas-grid { grid-template-columns: 1fr; }
+  .demo-stats { grid-template-columns: 1fr; }
+  .demo-stat { border-right: none; border-bottom: 1px solid var(--border); }
+  .bottom-lesson { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="readProgress"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-breadcrumb">
+      <a href="index.html">🏠 Bosh sahifa</a>
+      <span class="sep">›</span>
+      <a href="#">Mexanika</a>
+      <span class="sep">›</span>
+      <a href="#">Kinematika</a>
+      <span class="sep">›</span>
+      <span class="current">1-mavzu</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-btn">← Oldingi</span>
+    <a href="fizika-mexanika-kinematika-2.html" class="nav-btn next">Keyingi →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag"><div class="dot"></div>Kinematika · 1-Mavzu</div>
+  <h1>Moddiy Nuqta.<br><span class="highlight">Ko'chish, Tezlik va Yo'l</span></h1>
+  <p class="hero-desc">Mexanikaning asosi — jismlarning harakati, ko'chishi va tezligini o'rganamiz. Fizika dunyosiga birinchi qadamingiz.</p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-val">3</span>
+      <span class="meta-key">Asosiy tushuncha</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">5</span>
+      <span class="meta-key">Formula</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">3</span>
+      <span class="meta-key">Masala</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-val">5</span>
+      <span class="meta-key">Test savol</span>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+  <!-- THEORY -->
+  <div class="sec-label">Nazariya</div>
+  <h2 class="sec-title">Asosiy tushunchalar</h2>
+  <p class="sec-desc">Har bir tushunchani chuqur tushunib oling — keyingi mavzular shu poydevorga quriladi.</p>
+
+  <div class="theory-block">
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">⚫</span>Moddiy Nuqta nima?</h3>
+      <p>
+        <strong>Moddiy nuqta</strong> — o'lchamlari e'tiborga olinmaydigan, lekin massasi mavjud bo'lgan jism modeli. Fizikada muammoni soddalashtirish uchun ishlatiladi.
+        <br><br>
+        Masalan, Yer atrofida aylanayotgan Oyni hisob-kitob qilganda, Oyning o'lchamlari (3 474 km) uning Yerdan masofasiga (384 400 km) nisbatan juda kichik. Shuning uchun Oyni <strong>moddiy nuqta</strong> sifatida ko'rib chiqish mumkin.
+      </p>
+      <div class="note">💡 Eslatma: Jismni moddiy nuqta deb qarash mumkin, agar uning o'lchami harakatining masofasiga nisbatan e'tiborga olinmaydigan darajada kichik bo'lsa.</div>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">📍</span>Ko'chish (Displacement)</h3>
+      <p>
+        <strong>Ko'chish (Δr)</strong> — jismning boshlang'ich holatidan oxirgi holatigacha bo'lgan <strong>to'g'ri chiziqli masofa va yo'nalish</strong>. Ko'chish — vektorli kattalik, ya'ni uning <em>qiymati ham, yo'nalishi ham</em> bor.
+        <br><br>
+        Ko'chishni tasavvur qiling: Siz A nuqtadan B nuqtaga borasiz. Yo'l qancha bo'lishidan qat'i nazar, ko'chish — <strong>A dan B gacha to'g'ri chiziq</strong>.
+      </p>
+      <div class="note">⚠️ Diqqat: Ko'chish va yo'l bir xil emas! Ko'chish vektorli, yo'l esa skalyar kattalik.</div>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">🏁</span>Yo'l va Ko'chish farqi</h3>
+      <p>
+        <strong>Yo'l (s)</strong> — jism bosib o'tgan butun masofaning uzunligi (skalyar kattalik, faqat musbat qiymat qabul qiladi).
+        <br><br>
+        <strong>Ko'chish (Δr)</strong> — boshlanish va oxir nuqtalar orasidagi eng qisqa masofa (vektor kattalik, manfiy bo'lishi mumkin).
+      </p>
+      <table class="compare-table" style="margin-top:16px">
+        <tr>
+          <th>Xususiyat</th>
+          <th>Yo'l (s)</th>
+          <th>Ko'chish (Δr)</th>
+        </tr>
+        <tr>
+          <td>Kattalik turi</td>
+          <td>Skalyar</td>
+          <td>Vektor</td>
+        </tr>
+        <tr>
+          <td>Yo'nalish</td>
+          <td>Yo'q</td>
+          <td>Bor</td>
+        </tr>
+        <tr>
+          <td>Ishorasi</td>
+          <td>Har doim musbat</td>
+          <td>Musbat yoki manfiy</td>
+        </tr>
+        <tr>
+          <td>Misolda</td>
+          <td>10 km aylanib keldi</td>
+          <td>0 km (qaytib keldi)</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">⚡</span>Tezlik (Velocity vs Speed)</h3>
+      <p>
+        <strong>O'rtacha tezlik (v)</strong> — jismning birlik vaqt ichida bosib o'tgan yo'li. Tezlikning ikki turi bor:
+        <br><br>
+        🔵 <strong>O'rtacha tezlik</strong> — butun harakat davomidagi umumiy ko'chishning vaqtga nisbati (vektorli).<br>
+        🔵 <strong>Tezlik moduli (greyzir)</strong> — butun yo'lning vaqtga nisbati (skalyar).
+        <br><br>
+        <strong>Tezlikning birligi:</strong> m/s (SI tizimida), km/h (amalda).
+        <br>1 km/h = 1/3.6 m/s ≈ 0,278 m/s
+      </p>
+    </div>
+
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="formulas-section reveal">
+    <div class="sec-label">Formulalar</div>
+    <h2 class="sec-title">Asosiy formulalar</h2>
+    <p class="sec-desc">Barcha formulalarni yod oling va qachon ishlatilishini tushunib oling.</p>
+
+    <div class="formulas-grid">
+
+      <div class="formula-card">
+        <div class="formula-name">Ko'chish</div>
+        <code class="formula-expr">Δx = x₂ − x₁</code>
+        <div class="formula-vars">
+          <div class="var-row">
+            <span class="var-sym">Δx</span>
+            <span class="var-desc">Ko'chish</span>
+            <span class="var-unit">m</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">x₂</span>
+            <span class="var-desc">Oxirgi koordinata</span>
+            <span class="var-unit">m</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">x₁</span>
+            <span class="var-desc">Boshlang'ich koordinata</span>
+            <span class="var-unit">m</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">O'rtacha tezlik</div>
+        <code class="formula-expr">v = Δx / Δt</code>
+        <div class="formula-vars">
+          <div class="var-row">
+            <span class="var-sym">v</span>
+            <span class="var-desc">O'rtacha tezlik</span>
+            <span class="var-unit">m/s</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">Δx</span>
+            <span class="var-desc">Ko'chish</span>
+            <span class="var-unit">m</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">Δt</span>
+            <span class="var-desc">Vaqt oralig'i</span>
+            <span class="var-unit">s</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">O'rtacha greyzir</div>
+        <code class="formula-expr">|v| = s / t</code>
+        <div class="formula-vars">
+          <div class="var-row">
+            <span class="var-sym">|v|</span>
+            <span class="var-desc">Tezlik moduli</span>
+            <span class="var-unit">m/s</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">s</span>
+            <span class="var-desc">To'liq yo'l</span>
+            <span class="var-unit">m</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">t</span>
+            <span class="var-desc">Vaqt</span>
+            <span class="var-unit">s</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">Yo'l (tezlik × vaqt)</div>
+        <code class="formula-expr">s = v · t</code>
+        <div class="formula-vars">
+          <div class="var-row">
+            <span class="var-sym">s</span>
+            <span class="var-desc">Yo'l</span>
+            <span class="var-unit">m</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">v</span>
+            <span class="var-desc">Tezlik</span>
+            <span class="var-unit">m/s</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">t</span>
+            <span class="var-desc">Vaqt</span>
+            <span class="var-unit">s</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-card">
+        <div class="formula-name">Birlik o'zgartirish</div>
+        <code class="formula-expr">v(m/s) = v(km/h) ÷ 3.6</code>
+        <div class="formula-vars">
+          <div class="var-row">
+            <span class="var-sym">÷3.6</span>
+            <span class="var-desc">km/h dan m/s ga</span>
+          </div>
+          <div class="var-row">
+            <span class="var-sym">×3.6</span>
+            <span class="var-desc">m/s dan km/h ga</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEMO -->
+  <div class="demo-section reveal">
+    <div class="sec-label">Interaktiv namoyish</div>
+    <h2 class="sec-title">Harakat simulyatsiyasi</h2>
+    <p class="sec-desc">Bir o'lchamli harakatda yo'l va ko'chishni kuzating.</p>
+
+    <div class="demo-box">
+      <div class="demo-header">
+        <div>
+          <div class="demo-title">Moddiy nuqta harakati</div>
+          <div class="demo-sub">Yo'l va ko'chishning farqini ko'ring</div>
+        </div>
+        <div class="demo-controls">
+          <button class="ctrl-btn" id="btnForward" onclick="runDemo('forward')">→ Oldinga</button>
+          <button class="ctrl-btn" id="btnBack" onclick="runDemo('back')">← Qaytish</button>
+          <button class="ctrl-btn" onclick="resetDemo()">↺ Reset</button>
+        </div>
+      </div>
+
+      <div class="demo-canvas">
+        <div class="path-line" id="pathLine"></div>
+        <div class="track"></div>
+        <div class="track-marks">
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">0</div></div>
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">20</div></div>
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">40</div></div>
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">60</div></div>
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">80</div></div>
+          <div class="track-mark"><div class="mark-line"></div><div class="mark-label">100m</div></div>
+        </div>
+        <div class="particle" id="particle"></div>
+        <div class="particle-label" id="particleLabel">M (0 m)</div>
+      </div>
+
+      <div class="demo-stats">
+        <div class="demo-stat">
+          <div class="demo-stat-label">Yo'l (s)</div>
+          <div><span class="demo-stat-val" id="statYol">0</span><span class="demo-stat-unit">m</span></div>
+        </div>
+        <div class="demo-stat">
+          <div class="demo-stat-label">Ko'chish (Δx)</div>
+          <div><span class="demo-stat-val" id="statKochish">0</span><span class="demo-stat-unit">m</span></div>
+        </div>
+        <div class="demo-stat">
+          <div class="demo-stat-label">Holat</div>
+          <div><span class="demo-stat-val" id="statHolat" style="font-size:14px;color:var(--gray)">Tayyor</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAMPLES -->
+  <div class="examples-section reveal">
+    <div class="sec-label">Masalalar</div>
+    <h2 class="sec-title">Yechilgan masalalar</h2>
+    <p class="sec-desc">Har bir masalani avval o'zingiz yechishga harakat qiling, keyin yechimni oching.</p>
+
+    <div class="examples-list">
+
+      <div class="example-card" id="ex1">
+        <div class="example-header" onclick="toggleExample('ex1')">
+          <div class="example-num">1</div>
+          <div class="example-q">Avtomobil A shahridan B shahriga 120 km yo'l bosib o'tdi va 2 soat vaqt sarfladi. Avtomobilning o'rtacha tezligini toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step">
+            <span class="step-num">Berilgan</span>
+            <div class="step-content">
+              Yo'l: <span class="formula-inline">s = 120 km</span><br>
+              Vaqt: <span class="formula-inline">t = 2 soat</span>
+            </div>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">Topish</span>
+            <div class="step-content">O'rtacha tezlik: <span class="formula-inline">v = ?</span></div>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">Yechim</span>
+            <div class="step-content">
+              Formulani qo'llaymiz: <span class="formula-inline">v = s / t</span><br><br>
+              <span class="formula-inline">v = 120 km / 2 soat = 60 km/h</span><br><br>
+              m/s ga o'tkazamiz: <span class="formula-inline">v = 60 / 3.6 ≈ 16.7 m/s</span>
+            </div>
+          </div>
+          <div class="answer">✅ Javob: v = 60 km/h = 16,7 m/s</div>
+        </div>
+      </div>
+
+      <div class="example-card" id="ex2">
+        <div class="example-header" onclick="toggleExample('ex2')">
+          <div class="example-num">2</div>
+          <div class="example-q">Piyoda 500 m shimolga, keyin 300 m janubga yurdi. Piyodaning yo'lini va ko'chishini toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step">
+            <span class="step-num">Berilgan</span>
+            <div class="step-content">
+              1-qism: <span class="formula-inline">s₁ = 500 m (shimol)</span><br>
+              2-qism: <span class="formula-inline">s₂ = 300 m (janub)</span>
+            </div>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">Yo'l</span>
+            <div class="step-content">
+              Yo'l — barcha bosib o'tilgan masofalar yig'indisi:<br>
+              <span class="formula-inline">s = s₁ + s₂ = 500 + 300 = 800 m</span>
+            </div>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">Ko'chish</span>
+            <div class="step-content">
+              Ko'chish — boshlanish va oxirgi nuqta orasidagi masofa (yo'nalishli):<br>
+              Shimolni musbat deb olsak:<br>
+              <span class="formula-inline">Δx = +500 + (-300) = +200 m (shimol tomonga)</span>
+            </div>
+          </div>
+          <div class="answer">✅ Yo'l: 800 m &nbsp;|&nbsp; Ko'chish: 200 m (shimol tomonga)</div>
+        </div>
+      </div>
+
+      <div class="example-card" id="ex3">
+        <div class="example-header" onclick="toggleExample('ex3')">
+          <div class="example-num">3</div>
+          <div class="example-q">Jism 8 m/s tezlikda 15 sekund harakat qildi. Jism bosib o'tgan yo'lni toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step">
+            <span class="step-num">Berilgan</span>
+            <div class="step-content">
+              Tezlik: <span class="formula-inline">v = 8 m/s</span><br>
+              Vaqt: <span class="formula-inline">t = 15 s</span>
+            </div>
+          </div>
+          <div class="solution-step">
+            <span class="step-num">Yechim</span>
+            <div class="step-content">
+              <span class="formula-inline">s = v · t</span><br><br>
+              <span class="formula-inline">s = 8 m/s · 15 s = 120 m</span>
+            </div>
+          </div>
+          <div class="answer">✅ Javob: s = 120 m</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section reveal">
+    <div class="sec-label">Bilimingizni sinang</div>
+    <h2 class="sec-title">Test savollari</h2>
+    <p class="sec-desc">5 ta savol. Har birini diqqat bilan o'qing.</p>
+
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <h3 id="quizTitle">1-savol</h3>
+        <span class="quiz-progress-text" id="quizProg">1 / 5</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-options" id="quizOpts"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-btn" id="nextBtn" onclick="nextQuiz()" disabled>Keyingi →</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="bottom-lesson">
+    <div class="blabel">Hozirgi mavzu</div>
+    <div class="btitle">Kinematika · 1-Mavzu</div>
+  </div>
+  <div class="bottom-btns">
+    <a href="index.html" class="bb">🏠 Bosh sahifa</a>
+    <a href="fizika-mexanika-kinematika-2.html" class="bb primary">2-Mavzu →</a>
+  </div>
+</div>
+
+<script>
+// ===== READ PROGRESS =====
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min(100, (scrollTop / docHeight) * 100);
+  document.getElementById('readProgress').style.width = pct + '%';
+});
+
+// ===== REVEAL =====
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ===== EXAMPLE TOGGLE =====
+function toggleExample(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+// ===== DEMO =====
+let demoPos = 0; // percentage of track (0-90%)
+let totalPath = 0;
+let startPos = 0;
+let animating = false;
+
+function updateDemo() {
+  const particle = document.getElementById('particle');
+  const label = document.getElementById('particleLabel');
+  const pathLine = document.getElementById('pathLine');
+  const realPos = Math.round(demoPos * 100 / 90);
+  const kochish = Math.round((demoPos - startPos) * 100 / 90);
+
+  particle.style.left = (5 + demoPos * 0.9) + '%';
+  label.style.left = (5 + demoPos * 0.9) + '%';
+  label.textContent = 'M (' + realPos + ' m)';
+
+  if(demoPos >= startPos) {
+    pathLine.style.left = (5 + startPos * 0.9) + '%';
+    pathLine.style.width = ((demoPos - startPos) * 0.9) + '%';
+    pathLine.style.background = 'rgba(96,165,250,0.4)';
+  } else {
+    pathLine.style.left = (5 + demoPos * 0.9) + '%';
+    pathLine.style.width = ((startPos - demoPos) * 0.9) + '%';
+    pathLine.style.background = 'rgba(239,68,68,0.4)';
+  }
+
+  document.getElementById('statYol').textContent = totalPath;
+  document.getElementById('statKochish').textContent = (kochish >= 0 ? '+' : '') + kochish;
+}
+
+function runDemo(dir) {
+  if(animating) return;
+  animating = true;
+  const prevPos = demoPos;
+
+  if(dir === 'forward') {
+    const target = Math.min(90, demoPos + 45);
+    document.getElementById('statHolat').textContent = '→ Oldinga';
+    document.getElementById('statHolat').style.color = 'var(--blue-light)';
+    animate(demoPos, target, 1200, () => {
+      totalPath += Math.round((target - prevPos) * 100 / 90);
+      animating = false;
+      document.getElementById('statHolat').textContent = 'To\'xtadi';
+      document.getElementById('statHolat').style.color = 'var(--gray)';
+    });
+    demoPos = target;
+  } else {
+    const target = Math.max(0, demoPos - 45);
+    document.getElementById('statHolat').textContent = '← Qaytish';
+    document.getElementById('statHolat').style.color = 'var(--red)';
+    animate(demoPos, target, 1200, () => {
+      totalPath += Math.round((prevPos - target) * 100 / 90);
+      demoPos = target;
+      animating = false;
+      document.getElementById('statHolat').textContent = 'To\'xtadi';
+      document.getElementById('statHolat').style.color = 'var(--gray)';
+      updateDemo();
+    });
+    demoPos = target;
+  }
+}
+
+function animate(from, to, duration, cb) {
+  const start = performance.now();
+  const diff = to - from;
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const cur = from + diff * ease;
+    const tempPos = demoPos;
+    demoPos = cur;
+    updateDemo();
+    demoPos = tempPos;
+    if(progress < 1) requestAnimationFrame(step);
+    else { demoPos = to; updateDemo(); if(cb) cb(); }
+  }
+  requestAnimationFrame(step);
+}
+
+function resetDemo() {
+  if(animating) return;
+  demoPos = 0; totalPath = 0; startPos = 0;
+  document.getElementById('statHolat').textContent = 'Tayyor';
+  document.getElementById('statHolat').style.color = 'var(--gray)';
+  document.getElementById('pathLine').style.width = '0';
+  updateDemo();
+}
+
+updateDemo();
+
+// ===== QUIZ =====
+const questions = [
+  {
+    q: "Moddiy nuqta deb qaysi jismni aytamiz?",
+    opts: [
+      "O'lchami nolga teng bo'lgan jism",
+      "O'lchami harakatining masofasiga nisbatan e'tiborga olinmaydigan jism",
+      "Massasi bo'lmagan jism",
+      "Faqat to'g'ri chiziqda harakatlanadigan jism"
+    ],
+    correct: 1,
+    explain: "Moddiy nuqta — o'lchami harakat masofasiga nisbatan ahamiyatsiz bo'lgan jism modeli. Uning massasi mavjud bo'ladi."
+  },
+  {
+    q: "Ko'chish va yo'lning asosiy farqi nima?",
+    opts: [
+      "Ko'chish doimo yo'ldan katta bo'ladi",
+      "Ko'chish — vektor, yo'l — skalyar kattalik",
+      "Yo'l — vektor, ko'chish — skalyar kattalik",
+      "Ularning orasida hech qanday farq yo'q"
+    ],
+    correct: 1,
+    explain: "Ko'chish — vektorli kattalik (qiymati va yo'nalishi bor). Yo'l — skalyar kattalik (faqat qiymati bor, doimo musbat)."
+  },
+  {
+    q: "Jism 100 m shimolga, keyin 100 m janubga yurdi. Ko'chish qancha?",
+    opts: ["200 m", "100 m", "0 m", "50 m"],
+    correct: 2,
+    explain: "Jism boshlanish nuqtasiga qaytib keldi, demak ko'chish = 0. Lekin yo'l = 200 m."
+  },
+  {
+    q: "Avtomobil 90 km/h tezlikda harakatlanmoqda. Bu necha m/s?",
+    opts: ["90 m/s", "32,4 m/s", "25 m/s", "9 m/s"],
+    correct: 2,
+    explain: "90 km/h ÷ 3.6 = 25 m/s. Formulani yodda saqlang: km/h ni m/s ga o'tkazish uchun 3.6 ga bo'linadi."
+  },
+  {
+    q: "Tezlik 5 m/s bo'lgan jism 20 sekund davomida qancha yo'l bosib o'tadi?",
+    opts: ["4 m", "25 m", "100 m", "15 m"],
+    correct: 2,
+    explain: "s = v × t = 5 m/s × 20 s = 100 m. Formulani to'g'ri qo'lladingiz!"
+  }
+];
+
+let currentQ = 0;
+let answered = false;
+let score = 0;
+
+function loadQuiz() {
+  const q = questions[currentQ];
+  document.getElementById('quizTitle').textContent = (currentQ + 1) + '-savol';
+  document.getElementById('quizProg').textContent = (currentQ + 1) + ' / ' + questions.length;
+  document.getElementById('quizQ').textContent = q.q;
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizFeedback').innerHTML = '';
+  document.getElementById('nextBtn').disabled = true;
+  answered = false;
+
+  const opts = document.getElementById('quizOpts');
+  opts.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  q.opts.forEach((opt, i) => {
+    const el = document.createElement('div');
+    el.className = 'quiz-opt';
+    el.innerHTML = `<span class="opt-letter">${letters[i]}</span>${opt}`;
+    el.addEventListener('click', () => selectOpt(i));
+    opts.appendChild(el);
+  });
+}
+
+function selectOpt(idx) {
+  if(answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const opts = document.querySelectorAll('.quiz-opt');
+  const fb = document.getElementById('quiz-feedback');
+
+  opts[idx].classList.add(idx === q.correct ? 'correct' : 'wrong');
+  if(idx !== q.correct) opts[q.correct].classList.add('correct');
+
+  const isCorrect = idx === q.correct;
+  if(isCorrect) score++;
+
+  const feedbackEl = document.getElementById('quizFeedback');
+  feedbackEl.className = 'quiz-feedback show ' + (isCorrect ? 'ok' : 'fail');
+  feedbackEl.innerHTML = (isCorrect ? '✅ To\'g\'ri! ' : '❌ Noto\'g\'ri. ') + q.explain;
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuiz() {
+  currentQ++;
+  if(currentQ < questions.length) {
+    loadQuiz();
+  } else {
+    const pct = Math.round(score / questions.length * 100);
+    document.querySelector('.quiz-card').innerHTML = `
+      <div style="padding:48px 32px;text-align:center">
+        <div style="font-size:56px;margin-bottom:16px">${pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '📚'}</div>
+        <h3 style="font-family:'Crimson Pro',serif;font-size:28px;color:var(--white);margin-bottom:8px">Natijangiz: ${score}/${questions.length}</h3>
+        <p style="color:var(--gray);margin-bottom:24px">${pct}% to'g'ri javob — ${pct >= 80 ? 'Ajoyib natija! Keyingi mavzuga o\'ting.' : pct >= 60 ? 'Yaxshi! Bir oz takrorlang.' : 'Ko\'proq o\'qib chiqing, so\'ng qayta urining.'}</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <button onclick="currentQ=0;score=0;loadQuiz();document.querySelector('.quiz-card').outerHTML=''" style="font-family:'Outfit';padding:10px 24px;background:var(--blue);color:white;border:none;border-radius:9px;cursor:pointer;font-size:14px">↺ Qayta urinish</button>
+          <a href="fizika-mexanika-kinematika-2.html" style="font-family:'Outfit';padding:10px 24px;background:var(--green);color:white;border:none;border-radius:9px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-flex;align-items:center">2-Mavzuga o'tish →</a>
+        </div>
+      </div>
+    `;
+  }
+}
+
+loadQuiz();
+</script>
+
+</body>
+</html>

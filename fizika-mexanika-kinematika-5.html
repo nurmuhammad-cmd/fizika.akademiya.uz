@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinematika | 5-Mavzu: O'rtacha va Oniy Tezliklar</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0E1A;--bg2:#0F1525;--bg3:#141B2E;
+  --violet:#7C3AED;--violet-light:#8B5CF6;--violet-pale:rgba(124,58,237,0.08);
+  --pink:#EC4899;--rose:#F43F5E;
+  --cyan:#06B6D4;--gold:#F59E0B;--green:#10B981;--red:#EF4444;--blue:#3B82F6;--blue-light:#60A5FA;
+  --white:#F0F4FF;--gray:#8892AA;
+  --border:rgba(139,92,246,0.18);--card:rgba(255,255,255,0.03);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;min-height:100vh;padding-bottom:80px}
+body::before{content:'';position:fixed;inset:0;
+  background-image:radial-gradient(1px 1px at 15% 20%,rgba(255,255,255,0.22) 0%,transparent 100%),
+    radial-gradient(1px 1px at 82% 12%,rgba(255,255,255,0.18) 0%,transparent 100%),
+    radial-gradient(1px 1px at 50% 72%,rgba(255,255,255,0.16) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 92% 60%,rgba(139,92,246,0.4) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 30% 92%,rgba(236,72,153,0.3) 0%,transparent 100%),
+    radial-gradient(ellipse 55% 45% at 88% 25%,rgba(124,58,237,0.07) 0%,transparent 70%);
+  pointer-events:none;z-index:0}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 5vw;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-breadcrumb{display:flex;align-items:center;gap:8px;font-size:13px}
+.nav-breadcrumb a{color:var(--gray);text-decoration:none;transition:color .2s}
+.nav-breadcrumb a:hover{color:var(--violet-light)}
+.nav-breadcrumb .sep{color:rgba(255,255,255,0.15)}
+.nav-breadcrumb .current{color:var(--violet-light);font-weight:500}
+.nav-right{display:flex;gap:10px}
+.nav-btn{font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:7px 16px;border-radius:8px;cursor:pointer;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--gray);background:transparent}
+.nav-btn:hover{background:var(--violet-pale);color:var(--violet-light);border-color:var(--violet-light)}
+.nav-btn.next{background:var(--violet-light);color:white;border-color:var(--violet-light);font-weight:600}
+.nav-btn.next:hover{background:#A78BFA}
+
+.progress-bar-wrap{position:fixed;top:60px;left:0;right:0;height:3px;z-index:99}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--violet-light),var(--pink));width:0;transition:width .15s}
+
+.hero{position:relative;z-index:1;padding:80px 5vw 60px;max-width:1100px;margin:0 auto}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.28);color:var(--violet-light);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:28px;animation:fadeUp .5s ease both}
+.hero-tag .dot{width:6px;height:6px;background:var(--violet-light);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero h1{font-family:'Crimson Pro',serif;font-size:clamp(40px,6vw,76px);font-weight:700;line-height:1.05;letter-spacing:-1px;animation:fadeUp .5s .1s ease both}
+.hero h1 .highlight{background:linear-gradient(135deg,var(--violet-light),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:17px;color:var(--gray);max-width:620px;line-height:1.7;margin-top:20px;font-weight:300;animation:fadeUp .5s .2s ease both}
+.hero-meta{display:flex;gap:32px;margin-top:36px;flex-wrap:wrap;animation:fadeUp .5s .3s ease both}
+.meta-item{display:flex;flex-direction:column;gap:3px}
+.meta-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--violet-light)}
+.meta-key{font-size:12px;color:var(--gray);letter-spacing:.05em}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 5vw}
+
+.content{max-width:1100px;margin:0 auto;padding:60px 5vw 40px;position:relative;z-index:1}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--violet-light);margin-bottom:10px}
+.sec-title{font-family:'Crimson Pro',serif;font-size:clamp(26px,3.5vw,40px);font-weight:600;letter-spacing:-.5px;color:var(--white);margin-bottom:8px}
+.sec-desc{font-size:15px;color:var(--gray);max-width:580px;line-height:1.7;font-weight:300}
+
+.theory-block{margin-top:48px;display:grid;gap:16px}
+.theory-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 32px;position:relative;overflow:hidden;transition:border-color .2s}
+.theory-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--violet-light),var(--pink));border-radius:3px 0 0 3px}
+.theory-card:hover{border-color:rgba(139,92,246,0.4)}
+.theory-card h3{font-size:18px;font-weight:600;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.theory-card h3 .icon{font-size:22px}
+.theory-card p{font-size:15px;color:var(--gray);line-height:1.75}
+.theory-card p strong{color:var(--white)}
+.note{margin-top:14px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#FCD34D;display:flex;gap:8px}
+.info{margin-top:14px;background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.22);border-radius:8px;padding:10px 14px;font-size:13px;color:#C4B5FD}
+
+/* COMPARE */
+.compare-section{margin-top:72px}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:32px}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+.cmp-card{border-radius:16px;padding:28px;position:relative;overflow:hidden;transition:all .25s}
+.cmp-card.avg{background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.25)}
+.cmp-card.inst{background:rgba(236,72,153,0.07);border:1px solid rgba(236,72,153,0.25)}
+.cmp-card:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.3)}
+.cmp-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:16px}
+.cmp-badge.avg{background:rgba(139,92,246,0.15);color:var(--violet-light);border:1px solid rgba(139,92,246,0.3)}
+.cmp-badge.inst{background:rgba(236,72,153,0.15);color:var(--pink);border:1px solid rgba(236,72,153,0.3)}
+.cmp-title{font-family:'Crimson Pro',serif;font-size:24px;font-weight:700;margin-bottom:12px}
+.cmp-card.avg .cmp-title{color:var(--violet-light)}
+.cmp-card.inst .cmp-title{color:var(--pink)}
+.cmp-formula{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:var(--gold);padding:12px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);border-radius:10px;margin-bottom:16px;display:block;text-align:center}
+.cmp-desc{font-size:14px;color:var(--gray);line-height:1.7}
+.cmp-desc strong{color:var(--white)}
+.cmp-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.cmp-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--gray)}
+.cmp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+
+/* FORMULAS */
+.formulas-section{margin-top:72px}
+.formulas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;margin-top:32px}
+.formula-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:24px;transition:all .2s;position:relative;overflow:hidden}
+.formula-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(139,92,246,0.06),transparent 70%);pointer-events:none}
+.formula-card:hover{transform:translateY(-3px);border-color:rgba(139,92,246,0.4);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.formula-name{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet-light);margin-bottom:14px}
+.formula-expr{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:600;color:var(--gold);margin-bottom:14px;padding:12px 16px;background:rgba(245,158,11,0.08);border-radius:8px;border:1px solid rgba(245,158,11,0.15);display:block;text-align:center}
+.formula-vars{display:flex;flex-direction:column;gap:6px}
+.var-row{display:flex;align-items:center;gap:10px;font-size:13px}
+.var-sym{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--blue-light);background:rgba(59,130,246,0.1);padding:2px 8px;border-radius:4px;min-width:36px;text-align:center;flex-shrink:0}
+.var-desc{color:var(--gray);flex:1}
+.var-unit{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);margin-left:auto}
+
+/* SPEEDOMETER */
+.speedo-section{margin-top:72px}
+.speedo-box{margin-top:32px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.speedo-header{background:rgba(139,92,246,0.06);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.speedo-body{display:grid;grid-template-columns:240px 1fr;gap:0}
+@media(max-width:680px){.speedo-body{grid-template-columns:1fr}}
+.speedo-pane{padding:24px;border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;gap:12px}
+.speedo-pane:last-child{border-right:none}
+.journey-panel{padding:20px;display:flex;flex-direction:column;gap:10px}
+.journey-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:4px}
+.journey-seg{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--card);transition:all .2s;cursor:pointer;user-select:none}
+.journey-seg:hover{border-color:rgba(139,92,246,0.4);background:var(--violet-pale)}
+.journey-seg.active{border-color:var(--violet-light);background:rgba(139,92,246,0.1)}
+.seg-icon{font-size:22px;flex-shrink:0}
+.seg-info{flex:1}
+.seg-name{font-size:13px;font-weight:600;color:var(--white)}
+.seg-detail{font-size:11px;color:var(--gray);margin-top:2px}
+.seg-speed{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600}
+.avg-result{padding:12px 16px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:10px;display:flex;align-items:center;justify-content:space-between;margin-top:4px}
+.avg-result-label{font-size:12px;color:var(--gray)}
+.avg-result-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--gold)}
+
+/* INSTANT TANGENT */
+.instant-section{margin-top:72px}
+.instant-box{margin-top:32px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.instant-header{background:rgba(236,72,153,0.05);border-bottom:1px solid var(--border);padding:16px 24px}
+.instant-canvas-wrap{padding:20px;overflow-x:auto}
+#instantCanvas{display:block;margin:0 auto;border-radius:8px}
+.tangent-controls{display:flex;align-items:center;gap:16px;padding:0 24px 20px;flex-wrap:wrap}
+.tc-label{font-size:13px;color:var(--gray)}
+.tc-slider{-webkit-appearance:none;appearance:none;width:200px;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer}
+.tc-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--pink);cursor:pointer}
+.tc-val{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--pink);min-width:60px}
+.instant-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border)}
+.inst-stat{padding:14px 20px;border-right:1px solid var(--border)}
+.inst-stat:last-child{border-right:none}
+.inst-stat-label{font-size:10px;color:var(--gray);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.inst-stat-val{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600}
+
+/* EXAMPLES */
+.examples-section{margin-top:72px}
+.examples-list{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.example-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.example-header{padding:18px 24px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:background .2s}
+.example-header:hover{background:rgba(139,92,246,0.05)}
+.example-num{width:32px;height:32px;border-radius:8px;background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.28);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--violet-light);flex-shrink:0}
+.example-q{font-size:15px;color:var(--white);flex:1;line-height:1.5}
+.example-arrow{color:var(--gray);font-size:16px;transition:transform .25s}
+.example-card.open .example-arrow{transform:rotate(90deg)}
+.example-body{display:none;padding:0 24px 24px;border-top:1px solid var(--border)}
+.example-card.open .example-body{display:block}
+.solution-step{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:14px;color:var(--gray);line-height:1.7;display:flex;gap:12px}
+.solution-step:last-child{border-bottom:none}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--violet-light);background:rgba(139,92,246,0.1);padding:2px 8px;border-radius:4px;height:fit-content;flex-shrink:0;margin-top:2px}
+.step-content{flex:1}
+.step-content strong{color:var(--white)}
+.formula-inline{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold);background:rgba(245,158,11,0.1);padding:2px 8px;border-radius:4px;margin:2px 0}
+.answer{margin-top:14px;padding:14px 18px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;font-size:15px;font-weight:600;color:var(--green);display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
+
+/* QUIZ */
+.quiz-section{margin-top:72px}
+.quiz-card{margin-top:32px;background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.quiz-header{background:rgba(139,92,246,0.05);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.quiz-header h3{font-size:16px;font-weight:600;color:var(--white)}
+.quiz-progress-text{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gray)}
+.quiz-body{padding:28px 24px}
+.quiz-q{font-size:17px;color:var(--white);line-height:1.6;margin-bottom:24px}
+.quiz-options{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{display:flex;align-items:center;gap:14px;padding:13px 18px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;font-size:14px;color:var(--gray);background:var(--card)}
+.quiz-opt:hover{border-color:var(--violet-light);color:var(--white);background:var(--violet-pale)}
+.quiz-opt.correct{border-color:var(--green);background:rgba(16,185,129,0.08);color:var(--green)}
+.quiz-opt.wrong{border-color:var(--red);background:rgba(239,68,68,0.08);color:var(--red)}
+.opt-letter{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;flex-shrink:0}
+.quiz-opt.correct .opt-letter{background:rgba(16,185,129,0.2);border-color:var(--green);color:var(--green)}
+.quiz-opt.wrong .opt-letter{background:rgba(239,68,68,0.15);border-color:var(--red);color:var(--red)}
+.quiz-feedback{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:14px;display:none}
+.quiz-feedback.show{display:flex;gap:10px;align-items:flex-start}
+.quiz-feedback.ok{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:var(--green)}
+.quiz-feedback.fail{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);color:#FCA5A5}
+.quiz-nav{display:flex;justify-content:flex-end;padding:14px 24px;border-top:1px solid var(--border)}
+.quiz-btn{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;padding:9px 22px;border-radius:9px;border:none;background:var(--violet-light);color:white;cursor:pointer;transition:all .2s}
+.quiz-btn:hover{background:#A78BFA}
+.quiz-btn:disabled{opacity:.4;cursor:not-allowed;background:var(--border);color:var(--gray)}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,14,26,0.95);backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:14px 5vw;display:flex;align-items:center;justify-content:space-between;z-index:100}
+.bottom-lesson .blabel{color:var(--gray);margin-bottom:2px;font-size:11px}
+.bottom-lesson .btitle{color:var(--white);font-weight:500;font-size:13px}
+.bottom-btns{display:flex;gap:10px}
+.bb{font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;padding:9px 20px;border-radius:9px;cursor:pointer;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--gray);background:transparent}
+.bb:hover{background:var(--violet-pale);color:var(--violet-light);border-color:var(--violet-light)}
+.bb.primary{background:var(--violet-light);color:white;border-color:var(--violet-light);font-weight:600}
+.bb.primary:hover{background:#A78BFA}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(16px);transition:all .5s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:100px}
+@media(max-width:600px){.bottom-lesson{display:none}.instant-stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="readProgress"></div></div>
+
+<nav>
+  <div class="nav-breadcrumb">
+    <a href="index.html">🏠 Bosh sahifa</a><span class="sep">›</span>
+    <a href="#">Mexanika</a><span class="sep">›</span>
+    <a href="#">Kinematika</a><span class="sep">›</span>
+    <span class="current">5-mavzu</span>
+  </div>
+  <div class="nav-right">
+    <a href="fizika-mexanika-kinematika-4.html" class="nav-btn">← 4-mavzu</a>
+    <a href="fizika-mexanika-kinematika-6.html" class="nav-btn next">6-mavzu →</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-tag"><div class="dot"></div>Kinematika · 5-Mavzu</div>
+  <h1>O'rtacha va<br><span class="highlight">Oniy Tezliklar</span></h1>
+  <p class="hero-desc">Avtomobil spidometri oniy tezlikni ko'rsatadi. Lekin safarning umumiy o'rtacha tezligi boshqacha. Bu ikki tushunchaning farqini, formulalarini va ularning s–t grafigidagi ma'nosini chuqur o'rganamiz.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><span class="meta-val">4</span><span class="meta-key">Asosiy tushuncha</span></div>
+    <div class="meta-item"><span class="meta-val">4</span><span class="meta-key">Formula</span></div>
+    <div class="meta-item"><span class="meta-val">2</span><span class="meta-key">Interaktiv demo</span></div>
+    <div class="meta-item"><span class="meta-val">4</span><span class="meta-key">Masala</span></div>
+    <div class="meta-item"><span class="meta-val">5</span><span class="meta-key">Test savol</span></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="content">
+
+  <div class="sec-label">Nazariya</div>
+  <h2 class="sec-title">Asosiy tushunchalar</h2>
+  <p class="sec-desc">O'rtacha va oniy tezlik — bir-biridan farqli, lekin chambarchas bog'liq tushunchalar.</p>
+
+  <div class="theory-block">
+    <div class="theory-card reveal">
+      <h3><span class="icon">📊</span>O'rtacha tezlik (v_o'rt)</h3>
+      <p>
+        <strong>O'rtacha tezlik</strong> — jism muayyan vaqt davomida bosib o'tgan umumiy yo'lning shu vaqtga nisbati.
+        <br><br>
+        Misol: Siz Toshkentdan Samarqandga 300 km yo'l bosib o'tdingiz va 3 soat vaqt ketdi. O'rtacha tezligingiz — <strong>100 km/h</strong>. Lekin yo'l davomida ba'zan 120, ba'zan 60 km/h harakatlandingiz.
+        <br><br>
+        O'rtacha tezlik butun harakat haqida <strong>umumiy ma'lumot</strong> beradi.
+      </p>
+      <div class="note">⚠️ Muhim: O'rtacha tezlik = umumiy yo'l ÷ umumiy vaqt. Tezliklarning oddiy arifmetik o'rtachasi emas!</div>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">⚡</span>Oniy tezlik (v_oniy)</h3>
+      <p>
+        <strong>Oniy tezlik</strong> — jismning biror <em>aniq lahzadagi</em> tezligi. Avtomobil spidometri aynan oniy tezlikni ko'rsatadi.
+        <br><br>
+        Matematik jihatdan: vaqt oralig'i Δt nolga yaqinlashganda ko'chishning vaqtga nisbati:
+        <br><br>
+        <span style="color:var(--gold)">v_oniy = lim(Δt→0) Δx/Δt = dx/dt</span>
+        <br><br>
+        Bu <strong>hosilaning fizikaviy ma'nosi</strong>. Koordinata funksiyasining vaqt bo'yicha hosilasi = oniy tezlik.
+      </p>
+      <div class="info">💡 Tekis harakatda: oniy tezlik = o'rtacha tezlik (tezlik o'zgarmaydi). Notekis harakatda ular farqlanadi.</div>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">📐</span>Grafikdagi ma'nosi</h3>
+      <p>
+        <strong>s–t grafigida:</strong>
+        <br><br>
+        🔵 <strong>O'rtacha tezlik</strong> = ikki nuqtani tutashtiruvchi <em>vatar</em>ning qiyaligi<br>
+        🔴 <strong>Oniy tezlik</strong> = grafikning o'sha nuqtadagi <em>urinma</em>sining qiyaligi
+        <br><br>
+        Δt → 0 bo'lganda, vatar urinmaga aylanadi. Shu sababli oniy tezlik — hosilaning geometrik ma'nosi.
+      </p>
+      <div class="note">📐 Oniy tezlik = s–t grafikidagi urinma qiyaligi = dx/dt. Quyidagi interaktiv demoda buni ko'rishingiz mumkin.</div>
+    </div>
+
+    <div class="theory-card reveal">
+      <h3><span class="icon">🚗</span>Safar misoli</h3>
+      <p>
+        Ali Toshkentdan Namanganga ketmoqda:
+        <br><br>
+        • <strong>1-qism:</strong> 90 km/h da 2 soat → 180 km<br>
+        • <strong>2-qism:</strong> Tiqilinchda 30 km/h da 1 soat → 30 km<br>
+        • <strong>3-qism:</strong> 100 km/h da 1 soat → 100 km<br><br>
+        Umumiy: 310 km, 4 soat<br>
+        <strong>O'rtacha tezlik = 310 ÷ 4 = 77.5 km/h</strong><br>
+        Oniy tezlik esa: 0 dan 100+ km/h gacha har lahza o'zgardi.
+      </p>
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <div class="compare-section reveal">
+    <div class="sec-label">Taqqoslash</div>
+    <h2 class="sec-title">Ikki tushunchani yonma-yon</h2>
+    <p class="sec-desc">O'rtacha va oniy tezliklarning barcha farqlarini ko'ring.</p>
+    <div class="compare-grid">
+      <div class="cmp-card avg">
+        <div class="cmp-badge avg">📊 O'rtacha tezlik</div>
+        <div class="cmp-title">v<sub>o'rt</sub></div>
+        <code class="cmp-formula">v = Δs / Δt</code>
+        <div class="cmp-desc"><strong>Butun harakat davomida</strong> umumiy yo'lning umumiy vaqtga nisbati.</div>
+        <div class="cmp-list">
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--violet-light)"></div>Katta vaqt oralig'ini qamrab oladi</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--violet-light)"></div>Grafik: ikki nuqta vatar qiyaligi</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--violet-light)"></div>Spidometr ko'rsatmaydi</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--violet-light)"></div>Safari rejalashtirish uchun</div>
+        </div>
+      </div>
+      <div class="cmp-card inst">
+        <div class="cmp-badge inst">⚡ Oniy tezlik</div>
+        <div class="cmp-title">v<sub>oniy</sub></div>
+        <code class="cmp-formula">v = dx / dt</code>
+        <div class="cmp-desc"><strong>Biror lahzadagi</strong> tezlik — vaqt oralig'i nolga yaqinlashganda.</div>
+        <div class="cmp-list">
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--pink)"></div>Bir nuqta — bir lahza</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--pink)"></div>Grafik: urinma qiyaligi (hosila)</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--pink)"></div>Spidometr ko'rsatadi</div>
+          <div class="cmp-item"><div class="cmp-dot" style="background:var(--pink)"></div>Trafik jarimalarida ishlatiladi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORMULAS -->
+  <div class="formulas-section reveal">
+    <div class="sec-label">Formulalar</div>
+    <h2 class="sec-title">Asosiy formulalar</h2>
+    <p class="sec-desc">To'rtta muhim formula — barchasini yod oling.</p>
+    <div class="formulas-grid">
+      <div class="formula-card">
+        <div class="formula-name">O'rtacha tezlik</div>
+        <code class="formula-expr">v_o = s / t</code>
+        <div class="formula-vars">
+          <div class="var-row"><span class="var-sym">v_o</span><span class="var-desc">O'rtacha tezlik</span><span class="var-unit">m/s</span></div>
+          <div class="var-row"><span class="var-sym">s</span><span class="var-desc">Umumiy yo'l</span><span class="var-unit">m</span></div>
+          <div class="var-row"><span class="var-sym">t</span><span class="var-desc">Umumiy vaqt</span><span class="var-unit">s</span></div>
+        </div>
+      </div>
+      <div class="formula-card">
+        <div class="formula-name">Oniy tezlik (limit)</div>
+        <code class="formula-expr">v = dx/dt</code>
+        <div class="formula-vars">
+          <div class="var-row"><span class="var-sym">v</span><span class="var-desc">Oniy tezlik</span><span class="var-unit">m/s</span></div>
+          <div class="var-row"><span class="var-sym">dx</span><span class="var-desc">Cheksiz kichik ko'chish</span><span class="var-unit">m</span></div>
+          <div class="var-row"><span class="var-sym">dt</span><span class="var-desc">Cheksiz kichik vaqt</span><span class="var-unit">s</span></div>
+        </div>
+      </div>
+      <div class="formula-card">
+        <div class="formula-name">Ko'p qism uchun</div>
+        <code class="formula-expr">v_o = (s₁+s₂)/(t₁+t₂)</code>
+        <div class="formula-vars">
+          <div class="var-row"><span class="var-sym">s₁,s₂</span><span class="var-desc">Har qism yo'li</span><span class="var-unit">m</span></div>
+          <div class="var-row"><span class="var-sym">t₁,t₂</span><span class="var-desc">Har qism vaqti</span><span class="var-unit">s</span></div>
+        </div>
+      </div>
+      <div class="formula-card">
+        <div class="formula-name">Teng yo'l, turli v</div>
+        <code class="formula-expr">v_o = 2v₁v₂/(v₁+v₂)</code>
+        <div class="formula-vars">
+          <div class="var-row"><span class="var-sym">v₁</span><span class="var-desc">Borish tezligi</span><span class="var-unit">m/s</span></div>
+          <div class="var-row"><span class="var-sym">v₂</span><span class="var-desc">Qaytish tezligi</span><span class="var-unit">m/s</span></div>
+          <div class="var-row"><span class="var-sym">v_o</span><span class="var-desc">Garmonik o'rtacha</span><span class="var-unit">m/s</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPEEDOMETER -->
+  <div class="speedo-section reveal">
+    <div class="sec-label">Interaktiv demo · O'rtacha tezlik</div>
+    <h2 class="sec-title">Safar hisoblagichi</h2>
+    <p class="sec-desc">Qismlarni bosib faollashtiring — o'rtacha tezlik avtomatik hisoblanadi.</p>
+    <div class="speedo-box">
+      <div class="speedo-header">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--white)">Spidometr + O'rtacha tezlik hisoblagichi</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:2px">Qismlarni bosing · Ko'p qism tanlash mumkin</div>
+        </div>
+        <button id="resetJourneyBtn" style="font-family:Outfit;font-size:13px;padding:7px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--gray);cursor:pointer;transition:all .2s">↺ Reset</button>
+      </div>
+      <div class="speedo-body">
+        <div class="speedo-pane">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--violet-light)">Spidometr (oniy)</div>
+          <canvas id="speedoCanvas" width="200" height="200"></canvas>
+          <div style="text-align:center">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:700;color:var(--pink)" id="speedoNum">0</div>
+            <div style="font-size:11px;color:var(--gray)">km/h · oniy tezlik</div>
+          </div>
+        </div>
+        <div class="journey-panel">
+          <div class="journey-title">Safar qismlari — bosib tanlang:</div>
+          <div class="journey-seg" data-i="0"><span class="seg-icon">🏙️</span><div class="seg-info"><div class="seg-name">Shahar ichida</div><div class="seg-detail">30 km · 0.5 soat</div></div><span class="seg-speed" style="color:var(--violet-light)">60 km/h</span></div>
+          <div class="journey-seg" data-i="1"><span class="seg-icon">🚦</span><div class="seg-info"><div class="seg-name">Tiqilinch</div><div class="seg-detail">10 km · 1 soat</div></div><span class="seg-speed" style="color:var(--red)">10 km/h</span></div>
+          <div class="journey-seg" data-i="2"><span class="seg-icon">🛣️</span><div class="seg-info"><div class="seg-name">Magistral yo'l</div><div class="seg-detail">120 km · 1 soat</div></div><span class="seg-speed" style="color:var(--green)">120 km/h</span></div>
+          <div class="journey-seg" data-i="3"><span class="seg-icon">🏔️</span><div class="seg-info"><div class="seg-name">Tog' yo'li</div><div class="seg-detail">40 km · 1 soat</div></div><span class="seg-speed" style="color:var(--gold)">40 km/h</span></div>
+          <div class="avg-result">
+            <div>
+              <div class="avg-result-label">O'rtacha tezlik</div>
+              <div style="font-size:11px;color:var(--gray);margin-top:2px" id="avgFormula">Qism tanlanmagan</div>
+            </div>
+            <div class="avg-result-val" id="avgVal">— km/h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTANT TANGENT -->
+  <div class="instant-section reveal">
+    <div class="sec-label">Interaktiv demo · Oniy tezlik</div>
+    <h2 class="sec-title">s–t grafikida urinma = oniy tezlik</h2>
+    <p class="sec-desc">Sliderni suring — sariq urinma o'zgaradi, oniy tezlik ko'rsatiladi.</p>
+    <div class="instant-box">
+      <div class="instant-header">
+        <div style="font-size:14px;font-weight:600;color:var(--white)">Urinma = Oniy tezlik · x(t) = 2t² + t</div>
+        <div style="font-size:12px;color:var(--gray);margin-top:4px">Sariq chiziq = urinma · Qiyalik = oniy tezlik</div>
+      </div>
+      <div class="instant-canvas-wrap">
+        <canvas id="instantCanvas" width="620" height="290"></canvas>
+      </div>
+      <div class="tangent-controls">
+        <span class="tc-label">Vaqt nuqtasi:</span>
+        <input type="range" class="tc-slider" id="tangentSlider" min="0" max="100" value="30" oninput="updateTangent()">
+        <span class="tc-val" id="tangentT">3.0 s</span>
+        <span style="font-size:12px;color:var(--gray);margin-left:8px">← suring va urinmani kuzating</span>
+      </div>
+      <div class="instant-stats">
+        <div class="inst-stat">
+          <div class="inst-stat-label">Vaqt (t)</div>
+          <div><span class="inst-stat-val" id="iT" style="color:var(--violet-light)">3.0</span><span style="font-size:11px;color:var(--gray);margin-left:3px">s</span></div>
+        </div>
+        <div class="inst-stat">
+          <div class="inst-stat-label">Koordinata x(t)</div>
+          <div><span class="inst-stat-val" id="iX" style="color:var(--pink)">21.0</span><span style="font-size:11px;color:var(--gray);margin-left:3px">m</span></div>
+        </div>
+        <div class="inst-stat">
+          <div class="inst-stat-label">Oniy tezlik v(t)</div>
+          <div><span class="inst-stat-val" id="iV" style="color:var(--gold)">13.0</span><span style="font-size:11px;color:var(--gray);margin-left:3px">m/s</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAMPLES -->
+  <div class="examples-section reveal">
+    <div class="sec-label">Masalalar</div>
+    <h2 class="sec-title">Yechilgan masalalar</h2>
+    <p class="sec-desc">Avval o'zingiz urinib ko'ring.</p>
+    <div class="examples-list">
+
+      <div class="example-card" id="ex1">
+        <div class="example-header" onclick="toggleEx('ex1')">
+          <div class="example-num">1</div>
+          <div class="example-q">Velosiped haydovchi 40 km yo'lni 2 soatda, keyin 60 km yo'lni 3 soatda bosib o'tdi. Umumiy o'rtacha tezlikni toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step"><span class="step-num">Berilgan</span><div class="step-content">s₁=40 km, t₁=2 soat · s₂=60 km, t₂=3 soat</div></div>
+          <div class="solution-step"><span class="step-num">Formula</span><div class="step-content"><span class="formula-inline">v_o = (s₁+s₂)/(t₁+t₂)</span></div></div>
+          <div class="solution-step"><span class="step-num">Yechim</span><div class="step-content"><span class="formula-inline">v_o = (40+60)/(2+3) = 100/5 = 20 km/h</span></div></div>
+          <div class="answer">✅ O'rtacha tezlik: 20 km/h</div>
+        </div>
+      </div>
+
+      <div class="example-card" id="ex2">
+        <div class="example-header" onclick="toggleEx('ex2')">
+          <div class="example-num">2</div>
+          <div class="example-q">Avtomobil A dan B ga 60 km/h, qaytishda 90 km/h tezlikda bordi (yo'l teng). O'rtacha tezlikni toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step"><span class="step-num">Diqqat!</span><div class="step-content"><strong>(60+90)/2 = 75 km/h — NOTO'G'RI!</strong> Chunki sekin borganda ko'proq vaqt o'tadi.</div></div>
+          <div class="solution-step"><span class="step-num">Formula</span><div class="step-content">Teng yo'l uchun garmonik o'rtacha:<br><span class="formula-inline">v_o = 2v₁v₂/(v₁+v₂) = 2×60×90/150 = 72 km/h</span></div></div>
+          <div class="answer">✅ O'rtacha tezlik: 72 km/h (75 emas!)</div>
+        </div>
+      </div>
+
+      <div class="example-card" id="ex3">
+        <div class="example-header" onclick="toggleEx('ex3')">
+          <div class="example-num">3</div>
+          <div class="example-q">Jismning koordinatasi x(t) = 3t² + 2t + 1. t = 4 s dagi oniy tezlikni toping.</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step"><span class="step-num">Hosila</span><div class="step-content">v(t) = dx/dt = <span class="formula-inline">6t + 2</span></div></div>
+          <div class="solution-step"><span class="step-num">t=4 da</span><div class="step-content"><span class="formula-inline">v(4) = 6×4 + 2 = 26 m/s</span></div></div>
+          <div class="answer">✅ Oniy tezlik t=4 s da: 26 m/s</div>
+        </div>
+      </div>
+
+      <div class="example-card" id="ex4">
+        <div class="example-header" onclick="toggleEx('ex4')">
+          <div class="example-num">4</div>
+          <div class="example-q">Piyoda 4 km/h da 30 daqiqa, 6 km/h da 20 daqiqa yurdi. O'rtacha tezligi qancha?</div>
+          <span class="example-arrow">›</span>
+        </div>
+        <div class="example-body">
+          <div class="solution-step"><span class="step-num">Yo'llar</span><div class="step-content"><span class="formula-inline">s₁ = 4×0.5 = 2 km</span> · <span class="formula-inline">s₂ = 6×(1/3) = 2 km</span></div></div>
+          <div class="solution-step"><span class="step-num">O'rtacha</span><div class="step-content"><span class="formula-inline">v_o = (2+2)/(0.5+0.333) ≈ 4/0.833 ≈ 4.8 km/h</span><br><em>(Oddiy o'rtacha = 5 km/h — noto'g'ri!)</em></div></div>
+          <div class="answer">✅ O'rtacha tezlik ≈ 4.8 km/h</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-section reveal">
+    <div class="sec-label">Bilimingizni sinang</div>
+    <h2 class="sec-title">Test savollari</h2>
+    <p class="sec-desc">5 ta savol.</p>
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <h3 id="quizTitle">1-savol</h3>
+        <span class="quiz-progress-text" id="quizProg">1 / 5</span>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-q" id="quizQ"></div>
+        <div class="quiz-options" id="quizOpts"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-btn" id="nextBtn" onclick="nextQuiz()" disabled>Keyingi →</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <div class="bottom-lesson">
+    <div class="blabel">Hozirgi mavzu</div>
+    <div class="btitle">Kinematika · 5-Mavzu</div>
+  </div>
+  <div class="bottom-btns">
+    <a href="fizika-mexanika-kinematika-4.html" class="bb">← 4-mavzu</a>
+    <a href="index.html" class="bb">🏠 Bosh</a>
+    <a href="fizika-mexanika-kinematika-6.html" class="bb primary">6-mavzu →</a>
+  </div>
+</div>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const pct=Math.min(100,window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100);
+  document.getElementById('readProgress').style.width=pct+'%';
+});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.06});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function toggleEx(id){document.getElementById(id).classList.toggle('open');}
+
+// ===== SPEEDOMETER =====
+const sCanvas=document.getElementById('speedoCanvas');
+const sCtx=sCanvas.getContext('2d');
+let curSpd=0, animId=null;
+
+function drawSpeedo(spd){
+  const W=sCanvas.width,H=sCanvas.height,cx=W/2,cy=H/2+8,R=80;
+  sCtx.clearRect(0,0,W,H);
+  sCtx.beginPath(); sCtx.arc(cx,cy,R,0,Math.PI*2);
+  sCtx.fillStyle='rgba(139,92,246,0.06)'; sCtx.fill();
+  sCtx.strokeStyle='rgba(139,92,246,0.2)'; sCtx.lineWidth=2; sCtx.stroke();
+  const sA=Math.PI*0.75, eA=Math.PI*2.25, max=140;
+  sCtx.beginPath(); sCtx.arc(cx,cy,R-7,sA,eA);
+  sCtx.strokeStyle='rgba(255,255,255,0.05)'; sCtx.lineWidth=9; sCtx.lineCap='round'; sCtx.stroke();
+  const fE=sA+(spd/max)*(eA-sA);
+  const g=sCtx.createLinearGradient(cx-R,cy,cx+R,cy);
+  g.addColorStop(0,'#7C3AED'); g.addColorStop(1,'#EC4899');
+  sCtx.beginPath(); sCtx.arc(cx,cy,R-7,sA,Math.max(sA,fE));
+  sCtx.strokeStyle=g; sCtx.lineWidth=9; sCtx.lineCap='round'; sCtx.stroke();
+  sCtx.fillStyle='rgba(255,255,255,0.35)'; sCtx.font='9px JetBrains Mono,monospace'; sCtx.textAlign='center';
+  for(let s=0;s<=max;s+=20){
+    const a=sA+(s/max)*(eA-sA);
+    sCtx.fillText(s,cx+Math.cos(a)*(R-20),cy+Math.sin(a)*(R-20)+3);
+  }
+  const nA=sA+(spd/max)*(eA-sA);
+  sCtx.beginPath(); sCtx.moveTo(cx,cy); sCtx.lineTo(cx+Math.cos(nA)*(R-12),cy+Math.sin(nA)*(R-12));
+  sCtx.strokeStyle='#EC4899'; sCtx.lineWidth=2.5; sCtx.lineCap='round'; sCtx.stroke();
+  sCtx.beginPath(); sCtx.arc(cx,cy,4,0,Math.PI*2);
+  sCtx.fillStyle='#8B5CF6'; sCtx.fill();
+}
+
+function animTo(target){
+  if(animId) cancelAnimationFrame(animId);
+  const s0=curSpd, d=target-s0, t0=performance.now();
+  function step(now){
+    const p=Math.min((now-t0)/500,1), e=1-Math.pow(1-p,3);
+    curSpd=s0+d*e; drawSpeedo(curSpd);
+    document.getElementById('speedoNum').textContent=Math.round(curSpd);
+    if(p<1) animId=requestAnimationFrame(step); else curSpd=target;
+  }
+  requestAnimationFrame(step);
+}
+
+const segs=[{s:30,t:0.5,v:60},{s:10,t:1,v:10},{s:120,t:1,v:120},{s:40,t:1,v:40}];
+
+function updateAvg(){
+  const active=[];
+  document.querySelectorAll('.journey-seg').forEach((el,i)=>{if(el.classList.contains('active'))active.push(segs[i]);});
+  if(!active.length){document.getElementById('avgVal').textContent='— km/h';document.getElementById('avgFormula').textContent='Qism tanlanmagan';return;}
+  const tS=active.reduce((a,s)=>a+s.s,0), tT=active.reduce((a,s)=>a+s.t,0);
+  document.getElementById('avgVal').textContent=(tS/tT).toFixed(1)+' km/h';
+  document.getElementById('avgFormula').textContent=`${tS} km ÷ ${tT.toFixed(1)} soat`;
+}
+
+document.querySelectorAll('.journey-seg').forEach((el,i)=>{
+  el.addEventListener('click',()=>{
+    el.classList.toggle('active');
+    const active=Array.from(document.querySelectorAll('.journey-seg.active'));
+    if(active.length){const last=parseInt(active[active.length-1].dataset.i); animTo(segs[last].v);}
+    else animTo(0);
+    updateAvg();
+  });
+});
+
+document.getElementById('resetJourneyBtn').addEventListener('click',()=>{
+  document.querySelectorAll('.journey-seg').forEach(el=>el.classList.remove('active'));
+  animTo(0); updateAvg();
+});
+drawSpeedo(0);
+
+// ===== INSTANT TANGENT =====
+const iCanvas=document.getElementById('instantCanvas');
+const iCtx=iCanvas.getContext('2d');
+const iP={l:54,r:24,t:22,b:42};
+
+function xF(t){return 2*t*t+t;}
+function vF(t){return 4*t+1;}
+
+function drawInstant(t){
+  const W=iCanvas.width,H=iCanvas.height,gW=W-iP.l-iP.r,gH=H-iP.t-iP.b;
+  const tMax=10,xMax=220;
+  iCtx.fillStyle='#141B2E'; iCtx.fillRect(0,0,W,H);
+
+  // Grid
+  iCtx.strokeStyle='rgba(59,130,246,0.07)'; iCtx.lineWidth=1;
+  for(let i=0;i<=10;i++){const x=iP.l+(i/10)*gW;iCtx.beginPath();iCtx.moveTo(x,iP.t);iCtx.lineTo(x,iP.t+gH);iCtx.stroke();}
+  for(let i=0;i<=8;i++){const y=iP.t+(i/8)*gH;iCtx.beginPath();iCtx.moveTo(iP.l,y);iCtx.lineTo(iP.l+gW,y);iCtx.stroke();}
+
+  // Axes
+  iCtx.strokeStyle='rgba(255,255,255,0.25)'; iCtx.lineWidth=1.5;
+  iCtx.beginPath(); iCtx.moveTo(iP.l,iP.t); iCtx.lineTo(iP.l,iP.t+gH);
+  iCtx.moveTo(iP.l,iP.t+gH); iCtx.lineTo(iP.l+gW,iP.t+gH); iCtx.stroke();
+
+  // Labels
+  iCtx.fillStyle='#8892AA'; iCtx.font='10px JetBrains Mono,monospace'; iCtx.textAlign='center';
+  for(let ti=0;ti<=tMax;ti+=2){iCtx.fillText(ti+'s',iP.l+(ti/tMax)*gW,iP.t+gH+16);}
+  iCtx.textAlign='right';
+  for(let xi=0;xi<=xMax;xi+=50){const y=iP.t+gH-(xi/xMax)*gH;iCtx.fillText(xi,iP.l-6,y+3);}
+  iCtx.fillStyle='#8B5CF6'; iCtx.font='bold 11px Outfit,sans-serif'; iCtx.textAlign='center';
+  iCtx.fillText('t (s)',iP.l+gW/2,H-6);
+  iCtx.save(); iCtx.translate(14,iP.t+gH/2); iCtx.rotate(-Math.PI/2); iCtx.fillText('x (m)',0,0); iCtx.restore();
+
+  // Curve
+  iCtx.beginPath();
+  for(let ti=0;ti<=tMax;ti+=0.05){
+    const px=iP.l+(ti/tMax)*gW, py=iP.t+gH-(xF(ti)/xMax)*gH;
+    ti===0?iCtx.moveTo(px,py):iCtx.lineTo(px,py);
+  }
+  iCtx.strokeStyle='#8B5CF6'; iCtx.lineWidth=2.5; iCtx.stroke();
+
+  // Point
+  const px=iP.l+(t/tMax)*gW, py=iP.t+gH-(xF(t)/xMax)*gH;
+  const v=vF(t);
+  const sl=v*(gH/xMax)/(gW/tMax)*(-1);
+
+  // Tangent
+  iCtx.beginPath(); iCtx.moveTo(px-90,py-sl*(-90)); iCtx.lineTo(px+90,py-sl*(90));
+  iCtx.strokeStyle='#F59E0B'; iCtx.lineWidth=2; iCtx.setLineDash([6,3]); iCtx.stroke();
+  iCtx.setLineDash([]);
+
+  // Helpers
+  iCtx.strokeStyle='rgba(236,72,153,0.25)'; iCtx.lineWidth=1; iCtx.setLineDash([3,3]);
+  iCtx.beginPath(); iCtx.moveTo(px,iP.t+gH); iCtx.lineTo(px,py); iCtx.stroke();
+  iCtx.beginPath(); iCtx.moveTo(iP.l,py); iCtx.lineTo(px,py); iCtx.stroke();
+  iCtx.setLineDash([]);
+
+  // Dot
+  iCtx.beginPath(); iCtx.arc(px,py,6,0,Math.PI*2);
+  iCtx.fillStyle='#EC4899'; iCtx.fill();
+  iCtx.beginPath(); iCtx.arc(px,py,3,0,Math.PI*2);
+  iCtx.fillStyle='white'; iCtx.fill();
+
+  // Label
+  iCtx.fillStyle='#F59E0B'; iCtx.font='bold 11px JetBrains Mono,monospace'; iCtx.textAlign='left';
+  iCtx.fillText('v = '+v.toFixed(1)+' m/s',px+10,py-10);
+
+  document.getElementById('iT').textContent=t.toFixed(1);
+  document.getElementById('iX').textContent=xF(t).toFixed(1);
+  document.getElementById('iV').textContent=v.toFixed(1);
+  document.getElementById('tangentT').textContent=t.toFixed(1)+' s';
+}
+
+function updateTangent(){drawInstant(parseFloat(document.getElementById('tangentSlider').value)/100*10);}
+drawInstant(3);
+
+// ===== QUIZ =====
+const questions=[
+  {q:'O\'rtacha tezlik qanday hisoblanadi?',opts:['Tezliklarni qo\'shib, soniga bo\'lish','Umumiy yo\'lni umumiy vaqtga bo\'lish','Eng katta tezlikni ikkilashtirish','Boshlang\'ich va oxirgi tezlik o\'rtachasi'],correct:1,explain:'v_o\'rt = s_jami / t_jami. Tezliklarning oddiy arifmetik o\'rtachasi to\'g\'ri natija bermaydi.'},
+  {q:'Spidometr qaysi tezlikni ko\'rsatadi?',opts:['O\'rtacha tezlik','Maksimal tezlik','Oniy tezlik','Minimal tezlik'],correct:2,explain:'Spidometr — oniy tezlikni ko\'rsatadi. Aynan shu lahzadagi tezlik.'},
+  {q:'s–t grafikida oniy tezlik qanday topiladi?',opts:['Ikki nuqta vatarining qiyaligi','Urinma qiyaligi (hosila)','Grafik ostidagi maydon','Grafikning eng baland nuqtasi'],correct:1,explain:'Oniy tezlik = s–t grafikidagi urinma qiyaligi = dx/dt. Bu hosilaning geometrik ma\'nosi.'},
+  {q:'Avtomobil 60 km/h da bordi, 90 km/h da qaytdi (yo\'l teng). O\'rtacha tezlik?',opts:['75 km/h','72 km/h','80 km/h','65 km/h'],correct:1,explain:'Teng yo\'l: v_o = 2v₁v₂/(v₁+v₂) = 2×60×90/150 = 72 km/h. Oddiy o\'rtacha 75 — noto\'g\'ri!'},
+  {q:'x(t) = 5t² funksiyasi berilgan. t = 3 s dagi oniy tezlik?',opts:['45 m/s','15 m/s','30 m/s','9 m/s'],correct:2,explain:'v(t) = dx/dt = 10t. t=3 da: v = 10×3 = 30 m/s.'},
+];
+let cQ=0,answered=false,score=0;
+function loadQuiz(){
+  const q=questions[cQ];
+  document.getElementById('quizTitle').textContent=(cQ+1)+'-savol';
+  document.getElementById('quizProg').textContent=(cQ+1)+' / '+questions.length;
+  document.getElementById('quizQ').textContent=q.q;
+  document.getElementById('quizFeedback').className='quiz-feedback';
+  document.getElementById('nextBtn').disabled=true; answered=false;
+  const opts=document.getElementById('quizOpts'); opts.innerHTML='';
+  ['A','B','C','D'].forEach((l,i)=>{
+    const el=document.createElement('div'); el.className='quiz-opt';
+    el.innerHTML=`<span class="opt-letter">${l}</span>${q.opts[i]}`;
+    el.addEventListener('click',()=>{
+      if(answered)return; answered=true;
+      el.classList.add(i===q.correct?'correct':'wrong');
+      if(i!==q.correct) opts.children[q.correct].classList.add('correct');
+      if(i===q.correct) score++;
+      const fb=document.getElementById('quizFeedback');
+      fb.className='quiz-feedback show '+(i===q.correct?'ok':'fail');
+      fb.innerHTML=(i===q.correct?'✅ To\'g\'ri! ':'❌ Noto\'g\'ri. ')+q.explain;
+      document.getElementById('nextBtn').disabled=false;
+    });
+    opts.appendChild(el);
+  });
+}
+function nextQuiz(){
+  cQ++;
+  if(cQ<questions.length){loadQuiz();return;}
+  const pct=Math.round(score/questions.length*100);
+  document.querySelector('.quiz-card').innerHTML=`
+    <div style="padding:48px 32px;text-align:center">
+      <div style="font-size:56px;margin-bottom:16px">${pct>=80?'🏆':pct>=60?'👍':'📚'}</div>
+      <h3 style="font-family:'Crimson Pro',serif;font-size:28px;color:var(--white);margin-bottom:8px">Natijangiz: ${score}/${questions.length}</h3>
+      <p style="color:var(--gray);margin-bottom:28px">${pct}% to'g'ri — ${pct>=80?'Ajoyib! 6-mavzuga o\'ting.':pct>=60?'Yaxshi! Takrorlang.':'Nazariyani qayta o\'qing.'}</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button onclick="cQ=0;score=0;loadQuiz();this.closest('.quiz-card').remove()" style="font-family:Outfit;padding:10px 24px;background:var(--bg3);color:var(--white);border:1px solid var(--border);border-radius:9px;cursor:pointer;font-size:14px">↺ Qayta</button>
+        <a href="fizika-mexanika-kinematika-6.html" style="font-family:Outfit;padding:10px 24px;background:var(--violet-light);color:white;border:none;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none">6-Mavzuga →</a>
+      </div>
+    </div>`;
+}
+loadQuiz();
+</script>
+</body>
+</html>
